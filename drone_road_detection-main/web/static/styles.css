@@ -1,0 +1,445 @@
+/*
+ * Global styles for the responsive EdgeAI dashboard.  The dark theme with
+ * vibrant accent colours evokes the futuristic look of the provided
+ * reference image.  CSS Grid is used to lay out the top and bottom
+ * sections, while Flexbox arranges the smaller components within each
+ * panel.  Media queries adjust the layout when the viewport width
+ * becomes narrow, stacking panels vertically for mobile devices.
+ */
+
+/* Reset default margins and paddings */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at top, #0b1f3a 0%, #010712 100%);
+  color: #e5efff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Header */
+.dashboard__header {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #02285e, #031d38);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard__header h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #00c0ff;
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.road-summary {
+  font-size: 0.9rem;
+  color: #e5efff;
+}
+
+.weather-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.weather-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.weather-icon.sunny {
+  background: radial-gradient(circle, #ffd700, #ffa500);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,215,0,0.8);
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.weather-info span {
+  display: block;
+  font-size: 0.9rem;
+  color: #e5efff;
+}
+
+/* Main content area */
+.dashboard__main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+/* Left, middle and right panels */
+.panel {
+  background: rgba(5, 18, 39, 0.9);
+  border: 1px solid rgba(0, 192, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel--left h2, .panel--right h2 {
+  font-size: 1.2rem;
+  color: #00c0ff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-block {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-item:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-item h3 {
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: #7fa3c9;
+}
+
+.stat-number {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #00c0ff;
+}
+
+/* Donut chart container */
+.chart-container {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+/* Top 5 list */
+.top-list h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #7fa3c9;
+}
+
+.top-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.top-list li {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(2, 24, 47, 0.6);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  color: #ccd9e8;
+  border-left: 4px solid #00c0ff;
+}
+
+.top-list .rank {
+  font-weight: 700;
+  color: #00c0ff;
+  margin-right: 0.3rem;
+}
+
+.top-list .value {
+  margin-left: auto;
+  color: #00c0ff;
+}
+
+.top-list .percent {
+  margin-left: 0.4rem;
+  color: #7fa3c9;
+}
+
+/* Main video panel */
+.panel--main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  aspect-ratio: 16 / 9;
+}
+
+.panel--main video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.video-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.video-overlay canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Right panel specific styles */
+.stat-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.stat-box {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-box h3 {
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: #7fa3c9;
+}
+
+.stat-box .stat-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #00c0ff;
+}
+
+/* Progress ring */
+.progress-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.progress-ring p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #7fa3c9;
+}
+
+/* Digital counter */
+.digital-counter {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.digital-counter h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #7fa3c9;
+}
+
+.digital-counter .digits {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.digital-counter .digits span {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.2rem;
+  font-size: 1.1rem;
+  font-family: 'Courier New', Courier, monospace;
+  color: #00c0ff;
+  box-shadow: inset 0 0 5px rgba(0, 192, 255, 0.5);
+}
+
+.digital-counter .units {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: #7fa3c9;
+}
+
+/* Quality bar */
+.quality-bar {
+  margin-top: 1rem;
+}
+
+.quality-bar h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #7fa3c9;
+}
+
+.bar-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.bar-label {
+  width: 70px;
+  font-size: 0.8rem;
+  color: #ccd9e8;
+}
+
+.bar {
+  flex: 1;
+  background: rgba(2, 24, 47, 0.6);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  position: relative;
+  height: 12px;
+}
+
+.bar .fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(to right, #00c0ff, #0078b3);
+}
+
+.bar .count {
+  position: absolute;
+  right: 4px;
+  top: -18px;
+  font-size: 0.7rem;
+  color: #00c0ff;
+}
+
+/* 底部缺陷轨迹列表 */
+.dashboard__bottom {
+  padding: 0 1rem 1rem;
+}
+
+.defect-title {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #00c0ff;
+}
+
+.defect-track-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #00c0ff transparent;
+  touch-action: pan-x;
+}
+
+.defect-track-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.defect-track-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.defect-track-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #00c0ff, #0078b3);
+  border-radius: 4px;
+}
+
+.defect-track-container.grabbing {
+  cursor: grabbing;
+}
+
+.track-item {
+  flex: 0 0 20%;
+  min-width: 160px;
+  cursor: pointer;
+  text-align: center;
+  scroll-snap-align: start;
+  background: rgba(2, 24, 47, 0.6);
+  border: 1px solid rgba(0, 192, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.track-item img {
+  width: 100%;
+  border: 1px solid rgba(0, 192, 255, 0.3);
+  border-radius: 0.5rem;
+}
+
+.track-item span {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #7fa3c9;
+}
+
+.replay-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 192, 255, 0.8);
+  color: #00c0ff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+.replay-btn.show {
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .dashboard__main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .panel--left, .panel--right {
+    margin-bottom: 1rem;
+  }
+  }
+
+@media (max-width: 600px) {
+    .stat-block {
+    flex-direction: column;
+  }
+  .stat-item:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}

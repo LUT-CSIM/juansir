@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdgeAI道路巡检平台</title>
+    <!--
+      This page implements a responsive dashboard inspired by the provided
+      reference image. It uses modern CSS Grid and Flexbox to create
+      a three‑column top section and a four‑column bottom section. The
+      central panel houses a video element that plays a short MP4 generated
+      via Python. Chart.js is loaded via a CDN
+      to render simple line and doughnut charts for the statistical panels.
+    -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.3.0/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="dashboard__header">
+            <h1>EdgeAI道路巡检管理平台</h1>
+            <div class="header-right">
+                <div class="road-summary">
+                    <span id="roadMileage">0</span>公里 /
+                    <span id="roadCount">0</span>条
+                </div>
+            </div>
+        </header>
+        <main class="dashboard__main">
+            <aside class="panel panel--left">
+                <h2>巡检统计</h2>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <h3>巡检次数</h3>
+                        <p id="inspectionCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>待维修数</h3>
+                        <p id="pendingCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>完成率</h3>
+                        <p id="completionRate" class="stat-number">0%</p>
+                    </div>
+                </div>
+                <div id="batchStatBlock" class="stat-block">
+                    <div class="stat-item">
+                        <h3>批次病害</h3>
+                        <p id="batchDefectCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>批次待维修</h3>
+                        <p id="batchPendingCount" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>批次完成率</h3>
+                        <p id="batchCompletionRate" class="stat-number">0%</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="leftDonutChart"></canvas>
+                </div>
+                <div class="top-list">
+                    <h3>检测批次</h3>
+                    <ul id="batchList"></ul>
+                </div>
+            </aside>
+            <section class="panel panel--main">
+                <video id="detectionVideo" src="{{ MEDIA_URL }}demo/demo_video.mp4" autoplay muted controls></video>
+                <div class="video-overlay">
+                    <!-- bounding box labels can be simulated here if desired -->
+                </div>
+                <button id="replayButton" class="replay-btn">重新播放</button>
+            </section>
+            <aside class="panel panel--right">
+                <div id="weatherWidget" class="weather-widget">
+                    <div class="weather-icon"></div>
+                    <div class="weather-info">
+                        <span id="weatherText">--</span>
+                        <span id="temperatureText">--℃</span>
+                    </div>
+                </div>
+                <h2>道路状态</h2>
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <circle cx="60" cy="60" r="50" stroke="#164a8a" stroke-width="12" fill="none"></circle>
+                        <circle cx="60" cy="60" r="50" stroke="#00c0ff" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="150"></circle>
+                        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#00c0ff" font-size="20">52%</text>
+                    </svg>
+                    <p>完成度</p>
+                </div>
+                <div class="digital-counter">
+                    <h3>今日巡检里程</h3>
+                    <div class="digits">
+                        <span>1</span><span>3</span><span>1</span><span>.</span><span>0</span><span>6</span>
+                    </div>
+                    <p class="units">公里</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="rightLineChart"></canvas>
+                </div>
+                <div class="quality-bar">
+                    <h3>巡检质量</h3>
+                    <div class="bar-group">
+                        <div class="bar-label">优秀</div>
+                        <div class="bar"><span class="fill" style="width:70%"></span><span class="count">22</span></div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-label">良好</div>
+                        <div class="bar"><span class="fill" style="width:50%"></span><span class="count">19</span></div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-label">较差</div>
+                        <div class="bar"><span class="fill" style="width:20%"></span><span class="count">7</span></div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+        <section class="dashboard__bottom">
+            <h2 class="defect-title">病害列表</h2>
+            <div class="defect-track-container"></div>
+        </section>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
